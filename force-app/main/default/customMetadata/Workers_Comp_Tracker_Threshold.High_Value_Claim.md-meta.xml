@@ -3,7 +3,7 @@
     <label>High Value Claim</label>
     <protected>false</protected>
     <values>
-        <field>Threshold_Value__c</field>
+        <field>Value__c</field>
         <value xsi:type="xsd:double">15000.0</value>
     </values>
 </CustomMetadata>

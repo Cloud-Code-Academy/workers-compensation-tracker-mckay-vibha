@@ -3,7 +3,7 @@
     <label>High Risk - Total Payout</label>
     <protected>false</protected>
     <values>
-        <field>Threshold_Value__c</field>
+        <field>Value__c</field>
         <value xsi:type="xsd:double">20000.0</value>
     </values>
 </CustomMetadata>

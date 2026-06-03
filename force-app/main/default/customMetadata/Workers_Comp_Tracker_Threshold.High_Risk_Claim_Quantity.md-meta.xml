@@ -3,7 +3,7 @@
     <label>High Risk - Claim Quantity</label>
     <protected>false</protected>
     <values>
-        <field>Threshold_Value__c</field>
+        <field>Value__c</field>
         <value xsi:type="xsd:double">10.0</value>
     </values>
 </CustomMetadata>
