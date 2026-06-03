@@ -150,17 +150,26 @@
     <enableHistory>false</enableHistory>
     <enableLicensing>false</enableLicensing>
     <enableReports>true</enableReports>
-    <enableSearch>false</enableSearch>
+    <enableSearch>true</enableSearch>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
     <label>Claim</label>
     <nameField>
+        <displayFormat>WC-{YYYY}-{000}</displayFormat>
         <label>Claim Number</label>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
     <pluralLabel>Claims</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts>
+        <searchResultsAdditionalFields>Status__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Insurance_Provider__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Incident_Date__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Injury_Type__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Is_High_Value__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Settlement_Amount__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Description__c</searchResultsAdditionalFields>
+    </searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>

@@ -6,8 +6,9 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>Equipment Malfunction</fullName>
                 <default>false</default>
