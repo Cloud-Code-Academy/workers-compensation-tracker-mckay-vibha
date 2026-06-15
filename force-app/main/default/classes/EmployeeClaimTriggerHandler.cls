@@ -27,6 +27,8 @@ public with sharing class EmployeeClaimTriggerHandler extends TriggerHandler {
      * AFTER_INSERT
      */
     public override void afterInsert(){
+        Set<Id> employeeIds = EmployeeClaimHelper.getEmployeeIds(newEmployeeClaims);
+        EmployeeClaimHelper.updateEmployeeRiskAndTotals(employeeIds);
         // Get Employee Ids from trigger.new
     }
 
@@ -53,5 +55,8 @@ public with sharing class EmployeeClaimTriggerHandler extends TriggerHandler {
      */
     public override void afterUndelete(){
         // Get Employee Ids from trigger.new
+        Set<Id> employeeIds = EmployeeClaimHelper.getEmployeeIds(newEmployeeClaims);
+        EmployeeClaimHelper.updateEmployeeRiskAndTotals(employeeIds);
+
     }
 }
