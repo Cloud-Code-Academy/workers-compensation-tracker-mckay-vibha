@@ -6,36 +6,71 @@
  */
 public with sharing class ClaimTriggerHandler extends TriggerHandler {
     // Local copies of the Trigger context variables
-    private List<Claim__c> newClaims;
-    private List<Claim__c> oldClaims;
-    private Map<Id, Claim__c> oldClaimsMap;
+  //  private List<Claim__c> newClaims;
+   // private List<Claim__c> oldClaims;
+   // private Map<Id, Claim__c> oldClaimsMap;
 
     /**
      * CONSTRUCTOR
      * Handles the necessary type casting for Trigger context variables referenced in a class
      */
-    public ClaimTriggerHandler() {
+  //  public ClaimTriggerHandler() {
         // Constructor takes care of the 
-        this.newClaims = (List<Claim__c>) Trigger.new;
-    }
+   //     this.newClaims = (List<Claim__c>) Trigger.new;
+  //  }
 
     /**
      * BEFORE_INSERT
      */
-    public override void beforeInsert(){
-        ClaimHelper.verifyDates(newClaims);
-        ClaimHelper.calculateDaysOpen(newClaims);
-        ClaimHelper.determineIsHighValue(newClaims);
-        ClaimHelper.determineSettlementDate(newClaims);
-    }
+//    public override void beforeInsert(){
+    //    ClaimHelper.verifyDates(newClaims);
+  //      ClaimHelper.calculateDaysOpen(newClaims);
+  //      ClaimHelper.determineIsHighValue(newClaims);
+   //     ClaimHelper.determineSettlementDate(newClaims);
+  //  }
 
     /**
      * BEFORE_UPDATE
      */
-    public override void beforeUpdate(){
-        ClaimHelper.verifyDates(newClaims);
-        ClaimHelper.calculateDaysOpen(newClaims);
-        ClaimHelper.determineIsHighValue(newClaims);
-        ClaimHelper.determineSettlementDate(newClaims);
+   // public override void beforeUpdate(){
+ //       ClaimHelper.verifyDates(newClaims);
+  //      ClaimHelper.calculateDaysOpen(newClaims);
+   //     ClaimHelper.determineIsHighValue(newClaims);
+  //      ClaimHelper.determineSettlementDate(newClaims);
+ //   }
+
+public override void beforeInsert(){
+           determineIsHighValue(Trigger.new);
+}
+
+
+public override void beforeUpdate(){
+            determineIsHighValue(Trigger.new);
+}
+
+
+
+private void determineIsHighValue (List<Claim__c> Claims) {
+           
+    Workers_Comp_Tracker_Threshold__mdt hvc = Workers_Comp_Tracker_Threshold__mdt.getInstance('High_Value_Claim');
+ 
+    if (hvc == null){
+           return;
     }
+   
+     for ( Claim__c claim : claims ) {
+     
+         if (   ) {
+         }
+
+     }
+
+ }
+
+
+}
+
+
+
+
 }
