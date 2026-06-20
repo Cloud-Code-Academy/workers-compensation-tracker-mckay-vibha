@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <excludeButtons>OpenSlackRecordChannel</excludeButtons>
+    <excludeButtons>AssignRecordLabel</excludeButtons>
+    <excludeButtons>ChangeRecordType</excludeButtons>
+    <excludeButtons>PrintableView</excludeButtons>
+    <excludeButtons>RecordShareHierarchy</excludeButtons>
+    <excludeButtons>Share</excludeButtons>
     <excludeButtons>Submit</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
@@ -99,9 +103,37 @@
         <layoutColumns/>
         <style>CustomLinks</style>
     </layoutSections>
+    <platformActionList>
+        <actionListContext>Record</actionListContext>
+        <platformActionListItems>
+            <actionName>Edit</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>0</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Delete</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>1</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>Clone</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>2</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>ChangeOwnerOne</actionName>
+            <actionType>StandardButton</actionType>
+            <sortOrder>3</sortOrder>
+        </platformActionListItems>
+    </platformActionList>
     <relatedLists>
-        <fields>NAME</fields>
+        <fields>Employee__c.NAME</fields>
+        <fields>Employee__c.Title__c</fields>
+        <fields>Employee__c.Department__c</fields>
+        <fields>Employee__c.Risk_Level__c</fields>
         <relatedList>Employee_Claim__c.Claim_Number__c</relatedList>
+        <sortField>Employee__c.NAME</sortField>
+        <sortOrder>Asc</sortOrder>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

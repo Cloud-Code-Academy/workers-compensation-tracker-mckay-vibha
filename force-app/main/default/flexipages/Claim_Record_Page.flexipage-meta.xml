@@ -20,6 +20,10 @@
                     <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>hideSlackAction</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>numVisibleActions</name>
                     <value>3</value>
                 </componentInstanceProperties>
@@ -44,8 +48,16 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Claim__c.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Employee_Claim__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
+                    <value>ADVGRID</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>rowsToDisplay</name>
@@ -55,8 +67,8 @@
                     <name>showActionBar</name>
                     <value>true</value>
                 </componentInstanceProperties>
-                <componentName>force:relatedListContainer</componentName>
-                <identifier>force_relatedListContainer</identifier>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
         <name>rightcol</name>
