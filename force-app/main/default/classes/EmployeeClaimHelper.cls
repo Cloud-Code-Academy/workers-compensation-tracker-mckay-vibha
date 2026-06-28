@@ -17,17 +17,17 @@ public with sharing class EmployeeClaimHelper {
         }
         return employeeIds;
     }
-    
+
     /**
      * Update the Employee risk level, total claims, and total settlement amount calculated from all their related Claims
      * @param employeeIds a set of Employee record Ids
      */
     public static void updateEmployeeRiskAndTotals(Set<Id> employeeIds){
-        // Get all related Claims grouped by Employee and Insurance Provider to allow provider-level risk assessment
-        List<AggregateResult> employeeProviderTotals = [SELECT Employee_Name__c, Claim_Number__r.Insurance_Provider__c, COUNT(Id) providerClaims, SUM(Claim_Number__r.Settlement_Amount__c) providerSettlementAmount
-                                                FROM Employee_Claim__c 
-                                                WHERE Employee_Name__c IN :employeeIds 
-                                                GROUP BY Employee_Name__c, Claim_Number__r.Insurance_Provider__c
+        // Get all related Claims grouped by Employee, Insurance Provider, and Status to allow provider-level risk assessment
+        List<AggregateResult> employeeProviderTotals = [SELECT Employee_Name__c, Claim_Number__r.Insurance_Provider__c, Claim_Number__r.Status__c status, COUNT(Id) providerClaims, SUM(Claim_Number__r.Settlement_Amount__c) providerSettlementAmount
+                                                FROM Employee_Claim__c
+                                                WHERE Employee_Name__c IN :employeeIds
+                                                GROUP BY Employee_Name__c, Claim_Number__r.Insurance_Provider__c, Claim_Number__r.Status__c
                                                 ORDER BY Employee_Name__c];
 
         // Since query results are sub-grouped by provider, it is possible for the same employee Id to have multiple aggregate result entries with different providers
@@ -36,11 +36,18 @@ public with sharing class EmployeeClaimHelper {
 
         // Loop aggregate query results
         for(AggregateResult employeeProviderTotal : employeeProviderTotals){
-            // Store provider-level claims and settlement values in an Employee variable then check risk level for this provider
+            // Store provider-level claims and settlement values in an Employee variable; only store settlement amount if status = Settled
             Employee__c employeeProvider = new Employee__c();
             employeeProvider.Id = (Id)employeeProviderTotal.get('Employee_Name__c');
             employeeProvider.Total_Claims__c = (Decimal)employeeProviderTotal.get('providerClaims');
-            employeeProvider.Total_Settlement_Amount__c = (Decimal)employeeProviderTotal.get('providerSettlementAmount');
+            if(employeeProviderTotal.get('status') == 'Settled'){
+                employeeProvider.Total_Settlement_Amount__c = (Decimal)employeeProviderTotal.get('providerSettlementAmount');
+            }
+            else{
+                employeeProvider.Total_Settlement_Amount__c = 0; // Set to 0 to avoid null exception below when incrementing settlement amounts for the employee
+            }
+
+            // Calculate the risk level for this provider
             employeeProvider.Risk_Level__c = calculateProviderRiskLevel(employeeProvider.Total_Claims__c, employeeProvider.Total_Settlement_Amount__c);
 
             // If this Employee has already been added to the map, then update it with new values, otherwise add to the map
