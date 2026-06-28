@@ -26,22 +26,33 @@ private class TestClaimTriggerHandler {
     static void testDetermineIsHighValue() {
 
             // Create test data
-             Claim__c newClaim = new Claim__c();
-             newClaim.Settlement_Amount__c = 500000;
-             newClaim.Date_Filed__c = Date.newInstance(2026,06,18);
-             newClaim.Incident_Date__c = Date.newInstance(2026,06,18);
+             List<Claim__c> claims = new List<Claim__c>();
 
+             Claim__c highClaim = new Claim__c();
+             highClaim.Settlement_Amount__c = 500000;
+             highClaim.Date_Filed__c = Date.newInstance(2026,06,18);
+             highClaim.Incident_Date__c = Date.newInstance(2026,06,18);
+
+             Claim__c lowClaim = new Claim__c(); 
+             lowClaim.Settlement_Amount__c = 500;
+             lowClaim.Date_Filed__c = Date.newInstance(2026, 06,20);
+             lowClaim.Incident_Date__c = Date.newInstance(2026,06,20);
+
+             claims.add(highClaim);
+             claims.add(lowClaim);
+            
 
             //Peform the test
              Test.startTest();
-             insert newClaim;
+             insert claims;
              Test.stopTest();
 
             //Query for the updated record
-            Claim__c claimResult = [SELECT Name,Id,Is_High_Value__c FROM Claim__c WHERE Id = :newClaim.Id];
+            Map<Id, Claim__c> results = new Map<Id, Claim__c>([SELECT Name,Id,Is_High_Value__c FROM Claim__c WHERE Id IN :claims]);
 
             //Assert the expected outcome
-            system.assertEquals(true, claimResult.Is_High_Value__c, 'IsHighValue should be checked for settlement Amounts greater than the threshold');
+            system.assertEquals(true, results.get(highClaim.Id).Is_High_Value__c, 'IsHighValue should be checked for settlement Amounts greater than the threshold');
+            system.assertEquals(false, results.get(lowClaim.Id).Is_High_Value__c, 'IsHighValue should be unchecked for settlement Amounts less than the threshold');
 
     }
 }
