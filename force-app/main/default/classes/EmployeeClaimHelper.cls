@@ -47,7 +47,7 @@ public with sharing class EmployeeClaimHelper {
             if(employeeMap.containsKey(employeeProvider.Id)){
                 Employee__c mapEmployee = employeeMap.get(employeeProvider.Id);
                 mapEmployee.Total_Claims__c += employeeProvider.Total_Claims__c;
-                mapEmployee.Total_Settlement_Amount__c = employeeProvider.Total_Settlement_Amount__c;
+                mapEmployee.Total_Settlement_Amount__c += employeeProvider.Total_Settlement_Amount__c;
                 if(mapEmployee.Risk_Level__c == null || mapEmployee.Risk_Level__c == 'Standard' || (mapEmployee.Risk_Level__c == 'Medium Risk' && employeeProvider.Risk_Level__c == 'High Risk')){
                     mapEmployee.Risk_Level__c = employeeProvider.Risk_Level__c;
                 }
